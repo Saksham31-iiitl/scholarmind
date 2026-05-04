@@ -11,6 +11,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY src/ ./src/
 COPY scripts/ ./scripts/
 COPY configs/ ./configs/
+COPY data/ ./data/
 
 EXPOSE 8000
-CMD ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+CMD ["sh", "-c", "python -m scripts.ingest_arxiv --query 'graph neural networks' --max 30 --no-kg && uvicorn src.api.main:app --host 0.0.0.0 --port 8000"]

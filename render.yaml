@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: scholarmind-api
+    runtime: docker
+    dockerfilePath: ./docker/Dockerfile.api
+    plan: free
+    envVars:
+      - key: LLM_PROVIDER
+        value: groq
+      - key: LLM_MODEL
+        value: llama-3.1-8b-instant
+      - key: GROQ_API_KEY
+        sync: false
+      - key: NEO4J_URI
+        sync: false
+      - key: NEO4J_USER
+        sync: false
+      - key: NEO4J_PASSWORD
+        sync: false
+      - key: VECTOR_STORE_PATH
+        value: ./data/vector_store
+
+  - type: web
+    name: scholarmind-ui
+    runtime: docker
+    dockerfilePath: ./docker/Dockerfile.ui
+    plan: free
+    envVars:
+      - key: API_URL
+        fromService:
+          name: scholarmind-api
+          type: web
+          property: host
