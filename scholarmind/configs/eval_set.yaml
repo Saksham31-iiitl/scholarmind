@@ -1,7 +1,0 @@
-questions:
-  - q: "What are the main aggregation strategies in graph neural networks?"
-    ground_truth: "Mean, sum, max-pool, attention-based aggregators."
-  - q: "How do GNNs handle over-smoothing in deep architectures?"
-    ground_truth: "Skip connections, DropEdge, PairNorm, residuals."
-  - q: "What benchmarks evaluate GNN performance on molecular tasks?"
-    ground_truth: "MoleculeNet, OGB, QM9."
