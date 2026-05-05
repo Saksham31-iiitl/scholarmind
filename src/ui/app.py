@@ -6,7 +6,8 @@ import requests
 import plotly.express as px
 import pandas as pd
 
-API = os.environ.get("API_URL", "http://localhost:8000")
+_api = os.environ.get("API_URL", "http://localhost:8000")
+API = _api if _api.startswith("http") else f"https://{_api}"
 
 st.set_page_config(page_title="ScholarMind", page_icon="🧠", layout="wide")
 st.title("🧠📚 ScholarMind — Multi-Agent Literature Reviewer")
