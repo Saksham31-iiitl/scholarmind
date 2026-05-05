@@ -68,10 +68,10 @@ class HybridRetriever:
 
     # ------------------------- persistence -------------------------
     def save(self, path: Path | str) -> None:
-        import faiss
         path = Path(path)
         path.mkdir(parents=True, exist_ok=True)
         if self.faiss_index is not None:
+            import faiss
             faiss.write_index(self.faiss_index, str(path / "index.faiss"))
         with (path / "store.pkl").open("wb") as f:
             pickle.dump({"chunks": [c.to_dict() for c in self.chunks], "bm25": self.bm25}, f)
@@ -95,7 +95,6 @@ class HybridRetriever:
         return np.asarray(self.bm25.get_scores(query.lower().split()))
 
     def _dense_scores(self, query: str) -> np.ndarray:
-        import faiss
         q = self.embedder.encode([query], normalize_embeddings=True).astype("float32")
         scores, idx = self.faiss_index.search(q, len(self.chunks))
         sims = np.zeros(len(self.chunks))

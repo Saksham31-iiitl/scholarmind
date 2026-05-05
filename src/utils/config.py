@@ -37,9 +37,9 @@ class Settings(BaseSettings):
     top_k_retrieve: int = 20
     top_k_rerank: int = 5
 
-    # Retrieval options
-    use_dense: bool = True
-    use_reranker: bool = True
+    # Retrieval options (set USE_DENSE=true locally for full hybrid retrieval)
+    use_dense: bool = False
+    use_reranker: bool = False
 
     # Agents
     max_critic_iterations: int = 3
