@@ -1,0 +1,30 @@
+# Core
+python-dotenv==1.0.1
+pydantic==2.7.4
+pydantic-settings==2.3.4
+pyyaml==6.0.1
+loguru==0.7.2
+tenacity==8.5.0
+tqdm==4.66.4
+
+# LLM & Agents
+langchain==0.2.11
+langchain-community==0.2.10
+langchain-groq==0.1.9
+langgraph==0.1.14
+
+# RAG & Embeddings (BM25 only — no torch/faiss)
+rank-bm25==0.2.2
+numpy==1.26.4
+
+# Knowledge Graph
+neo4j==5.22.0
+
+# Data sources
+arxiv==2.1.3
+requests==2.32.3
+httpx==0.27.0
+
+# API
+fastapi==0.111.1
+uvicorn[standard]==0.30.3

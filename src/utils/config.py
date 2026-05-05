@@ -38,6 +38,7 @@ class Settings(BaseSettings):
     top_k_rerank: int = 5
 
     # Retrieval options
+    use_dense: bool = True
     use_reranker: bool = True
 
     # Agents
