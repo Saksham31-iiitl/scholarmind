@@ -21,9 +21,10 @@ class Settings(BaseSettings):
     anthropic_api_key: str = ""
     openai_api_key: str = ""
 
-    # Neo4j
+    # Neo4j (accepts NEO4J_USER or NEO4J_USERNAME)
     neo4j_uri: str = "bolt://localhost:7687"
     neo4j_user: str = "neo4j"
+    neo4j_username: str = ""
     neo4j_password: str = "scholarmind123"
 
     # Paths

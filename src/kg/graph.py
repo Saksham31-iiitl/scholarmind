@@ -22,9 +22,10 @@ from src.utils.logging import logger
 
 class KnowledgeGraph:
     def __init__(self) -> None:
+        user = settings.neo4j_username or settings.neo4j_user
         self.driver: Driver = GraphDatabase.driver(
             settings.neo4j_uri,
-            auth=(settings.neo4j_user, settings.neo4j_password),
+            auth=(user, settings.neo4j_password),
         )
 
     def close(self) -> None:
