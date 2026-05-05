@@ -4,12 +4,8 @@ __pycache__/
 .env
 .pytest_cache/
 .ruff_cache/
-data/raw/*
 data/processed/*
-data/vector_store/*
-!data/raw/.gitkeep
 !data/processed/.gitkeep
-!data/vector_store/.gitkeep
 logs/
 .DS_Store
 .ipynb_checkpoints/
