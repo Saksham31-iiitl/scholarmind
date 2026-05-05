@@ -35,7 +35,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="ScholarMind API", version="1.0.0", lifespan=lifespan)
 
 
-@app.get("/health")
+@app.api_route("/health", methods=["GET", "HEAD"])
 def health():
     return {"status": "ok", "graph_loaded": _graph is not None}
 
