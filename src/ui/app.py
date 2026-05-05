@@ -1,11 +1,12 @@
 """Streamlit UI for ScholarMind."""
 from __future__ import annotations
+import os
 import streamlit as st
 import requests
 import plotly.express as px
 import pandas as pd
 
-API = st.secrets.get("API_URL", "http://localhost:8000")
+API = os.environ.get("API_URL", "http://localhost:8000")
 
 st.set_page_config(page_title="ScholarMind", page_icon="🧠", layout="wide")
 st.title("🧠📚 ScholarMind — Multi-Agent Literature Reviewer")
