@@ -33,7 +33,4 @@ services:
     plan: free
     envVars:
       - key: API_URL
-        fromService:
-          name: scholarmind-api
-          type: web
-          property: url
+        value: https://scholarmind-api.onrender.com
