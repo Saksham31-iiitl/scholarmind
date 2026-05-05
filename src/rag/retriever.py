@@ -29,11 +29,25 @@ class HybridRetriever:
         embedding_model: str | None = None,
         reranker_model: str | None = None,
     ) -> None:
-        self.embedder = SentenceTransformer(embedding_model or settings.embedding_model)
-        self.reranker = CrossEncoder(reranker_model or settings.reranker_model)
+        self._embedding_model_name = embedding_model or settings.embedding_model
+        self._reranker_model_name = reranker_model or settings.reranker_model
+        self._embedder: SentenceTransformer | None = None
+        self._reranker: CrossEncoder | None = None
         self.chunks: list[Chunk] = []
         self.bm25: BM25Okapi | None = None
         self.faiss_index: faiss.Index | None = None
+
+    @property
+    def embedder(self) -> SentenceTransformer:
+        if self._embedder is None:
+            self._embedder = SentenceTransformer(self._embedding_model_name)
+        return self._embedder
+
+    @property
+    def reranker(self) -> CrossEncoder:
+        if self._reranker is None:
+            self._reranker = CrossEncoder(self._reranker_model_name)
+        return self._reranker
 
     # ------------------------- index build -------------------------
     def build(self, chunks: Sequence[Chunk]) -> None:
@@ -112,7 +126,9 @@ class HybridRetriever:
         fused = self._rrf([bm25_top, dense_top])
         candidate_ids = sorted(fused, key=fused.get, reverse=True)[:top_k_retrieve]
 
-        # cross-encoder rerank
+        if not settings.use_reranker:
+            return [(self.chunks[i], fused[i]) for i in candidate_ids[:top_k_rerank]]
+
         pairs = [(query, self.chunks[i].text) for i in candidate_ids]
         ce_scores = self.reranker.predict(pairs)
         ranked = sorted(zip(candidate_ids, ce_scores), key=lambda x: -x[1])[:top_k_rerank]

@@ -37,6 +37,9 @@ class Settings(BaseSettings):
     top_k_retrieve: int = 20
     top_k_rerank: int = 5
 
+    # Retrieval options
+    use_reranker: bool = True
+
     # Agents
     max_critic_iterations: int = 3
 
